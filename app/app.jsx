@@ -10,7 +10,7 @@ $(document).foundation();
 // App css
 require('style!css!sass!applicationStyles')
 
-ReactDOM.render
+ReactDOM.render(
 
   <TodoApp/>,
   document.getElementById('app')
