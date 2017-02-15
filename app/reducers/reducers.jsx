@@ -1,3 +1,6 @@
+var uuid = require('node-uuid');
+var moment = require('moment');
+
 export var searchTextReducer = (state='',action) => {
   //action.something = 2; this will be detected by deepfreeze as pure functions should not edit this.
   switch(action.type){
@@ -8,7 +11,6 @@ export var searchTextReducer = (state='',action) => {
   };
 
 };
-
 export var showCompletedReducer = (state=false,action) =>{
   switch(action.type){
     case 'TOGGLE_SHOW_COMPLETED':
@@ -16,4 +18,34 @@ export var showCompletedReducer = (state=false,action) =>{
     default:
       return state;
   };
+};
+
+export var todosReducer = (state=[],action) =>{
+  switch(action.type){
+    case 'ADD_TODO':
+      return[
+        ...state,
+        {
+          id:uuid(),
+          text:action.text,
+          completed:false,
+          createdAt:moment().unix(),
+          completedAt:undefined
+        }
+      ];
+    case 'TOGGLE_TODO':
+      return state.map((todo)=>{
+        if(todo.id === action.id){
+          var nextCompleted = !todo.completed;
+
+          return{
+            ...todo,
+            completed:nextCompleted,
+            completedAt: nextCompleted ? moment().unix() : undefined
+          };
+        }
+      });
+    default:
+      return state;
+  }
 };
