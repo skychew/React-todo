@@ -1,5 +1,10 @@
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 var expect = require('expect');
+
 var actions = require('actions');
+
+var createMockStore = configureMockStore([thunk]);
 
 describe('Actions',()=>{
   it('should generate search text action',()=>{
@@ -22,11 +27,31 @@ describe('Actions',()=>{
   it('should generate add todo action',()=>{
     var action = {
       type : 'ADD_TODO',
-      text : 'thing to do '
+      todo: {
+        id: 'abc123',
+        text:'something todo anything really',
+        completed: false,
+        createdAt: 19264986
+      }
     };
-    var res = actions.addTodo(action.text);
+    var res = actions.addTodo(action.todo);
 
     expect(res).toEqual(action);
+  });
+  //lets mocha know this is asynchornous test. Dont stop listening for insertions or error until done
+  it('should create todo and dispatch ADD_TODO',(done)=>{
+    const store = createMockStore({});
+    const todoText = 'MY todo item';
+    store.dispatch(actions.startAddTodo(todoText)).then(()=>{
+      const actions = store.getActions();//from mockstore
+      expect(actions[0]).toInclude({ // as long as there is type add todo it will pass
+        type: 'ADD_TODO'
+      });
+      expect(actions[0].todo).toInclude({
+        text:todoText
+      })
+      done();
+    }).catch(done); // if things go wrong it will catch with error message
   });
   it('should generate add todos action object',()=>{
     var todos = [{
