@@ -8,19 +8,24 @@ var actions = require('actions');
 var store = require('configureStore').configure();
 var TodoAPI = require('TodoAPI');
 
+/* //store in local storage
 store.subscribe(()=>{
   var state = store.getState();
   console.log('New state',state);
   TodoAPI.setTodos(state.todos);
 });
-
+//extract from local storage
 var initialTodos = TodoAPI.getTodos();
 store.dispatch(actions.addTodos(initialTodos));
+*/
 /* Presets
 store.dispatch(actions.addTodo('Clean the yard'));
 store.dispatch(actions.setSearchText('yard'));
 store.dispatch(actions.toggleShowCompleted());
 */
+
+store.dispatch(actions.startAddTodos());
+
 // Load foundation
 $(document).foundation();
 
