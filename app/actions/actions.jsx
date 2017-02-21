@@ -1,10 +1,10 @@
 import moment from 'moment';
-import firebase, {firebaseRef} from 'app/firebase/';
+import firebase, {firebaseRef, githubProvider} from 'app/firebase/';
 
 export var setSearchText = (searchText)=>{
   return{
     type:'SET_SEARCH_TEXT',
-    searchText
+    searchTexth
   };
 };
 // text:text can be replaced with just text
@@ -88,6 +88,24 @@ export var startToggleTodo = (id, completed) => {
 
     return todoRef.update(updates).then(()=>{ //promise
       dispatch(updateTodo(id,updates));
+    });
+  };
+};
+
+export var startLogin = () =>{
+  return (dispatch,getState) => {
+    firebase.auth().signInWithPopup(githubProvider).then((result) => {
+      console.log('Auth worked!',result);
+    },(error)=>{
+      console.log('Unable to auth',error);
+    });
+  };
+};
+
+export var startLogout = () =>{
+  return (dispatch,getState) => {
+    return firebase.auth().signOut().then(() =>{
+      console.log('Logged out');
     });
   };
 };
