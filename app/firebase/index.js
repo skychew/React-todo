@@ -12,6 +12,8 @@ try{
   console.log('Error Connecting to database');
 }
 
-export var githubProvider = new firebase.auth.GithubAuthProvider();
+export var githubProvider   = new firebase.auth.GithubAuthProvider();
+export var facebookProvider = new firebase.auth.FacebookAuthProvider();
+export var googleProvider = new firebase.auth.GoogleAuthProvider();
 export var firebaseRef = firebase.database().ref();
 export default firebase; //exporting the root firebase library , they just need to import our config they wont need to import firebase

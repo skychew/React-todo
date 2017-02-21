@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import firebase, {firebaseRef, githubProvider} from 'app/firebase/';
+import firebase, {firebaseRef, githubProvider, facebookProvider, googleProvider } from 'app/firebase/';
 
 export var setSearchText = (searchText)=>{
   return{
@@ -93,20 +93,35 @@ export var startToggleTodo = (id, completed) => {
   };
 };
 
-export var startLogin = () => {
+export var startLogin = (loginType) => {
   return (dispatch, getState) => {
-    return firebase.auth().signInWithPopup(githubProvider).then((result) => {
-      console.log('Auth worked!',result);
+    switch(loginType){
+      case 'github':
+        var loginProvider = githubProvider;
+        break;
+      case 'facebook':
+        var loginProvider = facebookProvider;
+        break;
+      case 'google':
+        var loginProvider = googleProvider;
+        break;
+      default:
+          var loginProvider = 'undefined';
+    };
+    return firebase.auth().signInWithPopup(loginProvider).then((result) => {
+      console.log(`${loginType} Auth worked!`,result);
     },(error)=>{
-      console.log('Unable to auth',error);
+      console.log(`${loginType} Unable to auth`,error);
     });
   };
 };
 
 export var startLogout = () =>{
   return (dispatch,getState) => {
-    return firebase.auth().signOut().then(() =>{
+    return firebase.auth().signOut().then((result) =>{
       console.log('Logged out');
+    },(error)=>{
+      console.log('log out error');
     });
   };
 };

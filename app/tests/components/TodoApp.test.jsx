@@ -6,8 +6,7 @@ var expect = require ('expect');
 var $ = require('jquery');
 
 var configureStore = require('configureStore');
-var TodoApp = require('TodoApp');
-//var TodoList = require('TodoList');
+import {TodoApp} from 'TodoApp';//es6 to get unconnected version
 import TodoList from 'TodoList';
 
 describe('TodoApp', () => {

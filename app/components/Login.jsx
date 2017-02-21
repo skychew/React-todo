@@ -4,9 +4,17 @@ import * as Redux from 'react-redux';//need this to get dispatch
 import * as actions from 'actions';
 
 export var Login = React.createClass({
-  onLogin(){
+  onFirebaseLogin(){
     var {dispatch} = this.props;
-    dispatch(actions.startLogin());
+    dispatch(actions.startLogin("github"));
+  },
+  onFacebookLogin(){
+    var {dispatch} = this.props;
+    dispatch(actions.startLogin("facebook"));
+  },
+  onGoogleLogin(){
+    var {dispatch} = this.props;
+    dispatch(actions.startLogin("google"));
   },
   render(){
     return(
@@ -19,9 +27,9 @@ export var Login = React.createClass({
               <p>
                 Login/Register with GitHub account below.
               </p>
-              <button className="button" onClick={this.onLogin}>Login With Github</button><br></br>
-              <button className="button">Login With Facebook</button>
-              <button className="button">Login With Google+</button>
+              <button className="button" onClick={this.onFirebaseLogin}>Login With Github</button><br></br>
+              <button className="button" onClick={this.onFacebookLogin}>Login With Facebook</button>
+              <button className="button" onClick={this.onGoogleLogin}>Login With Google+</button>
             </div>
 
           </div>
