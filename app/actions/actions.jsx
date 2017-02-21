@@ -1,10 +1,11 @@
 import moment from 'moment';
+
 import firebase, {firebaseRef, githubProvider} from 'app/firebase/';
 
 export var setSearchText = (searchText)=>{
   return{
     type:'SET_SEARCH_TEXT',
-    searchTexth
+    searchText
   };
 };
 // text:text can be replaced with just text
@@ -79,7 +80,7 @@ export var updateTodo = (id, updates) => {
 
 // null could change to 0 completedAt
 export var startToggleTodo = (id, completed) => {
-  return(dispatch,getState) =>{
+  return(dispatch,getState) => {
     var todoRef = firebaseRef.child('todos/' + id);//es6 `todos/${id}` note (`)
     var updates = {
       completed,
@@ -92,9 +93,9 @@ export var startToggleTodo = (id, completed) => {
   };
 };
 
-export var startLogin = () =>{
-  return (dispatch,getState) => {
-    firebase.auth().signInWithPopup(githubProvider).then((result) => {
+export var startLogin = () => {
+  return (dispatch, getState) => {
+    return firebase.auth().signInWithPopup(githubProvider).then((result) => {
       console.log('Auth worked!',result);
     },(error)=>{
       console.log('Unable to auth',error);
