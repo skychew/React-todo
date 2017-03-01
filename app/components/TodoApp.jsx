@@ -6,7 +6,7 @@ import AddTodo from 'AddTodo';
 import TodoSearch from 'TodoSearch';
 import * as actions from 'actions';
 
-var TodoApp = React.createClass({
+export var TodoApp = React.createClass({
   onLogout(e){
     var {dispatch} = this.props;
     e.preventDefault();
@@ -19,7 +19,9 @@ var TodoApp = React.createClass({
         <div className="page-actions">
           <a href="#" onClick={this.onLogout}>Logout</a>
         </div>
+
         <h1 className="page-title">Ultimate Growth List</h1>
+
         <div className="row">
           <div className="column small-centered small-11 medium-6 large-5">
             <div className="container">

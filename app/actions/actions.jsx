@@ -93,6 +93,13 @@ export var startToggleTodo = (id, completed) => {
   };
 };
 
+export var login = (uid) =>{
+  return{
+    type:'LOGIN',
+    uid
+  };
+};
+
 export var startLogin = (loginType) => {
   return (dispatch, getState) => {
     switch(loginType){
@@ -123,5 +130,11 @@ export var startLogout = () =>{
     },(error)=>{
       console.log('log out error');
     });
+  };
+};
+
+export var logout = () =>{
+  return {
+    type:'LOGOUT'
   };
 };
