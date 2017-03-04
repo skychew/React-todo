@@ -1,4 +1,5 @@
 var express = require('express');
+var path = require('path');
 
 // Create our app
 var app = express();
@@ -11,8 +12,11 @@ app.use(function (req, res, next){
     next();
   }
 });
-
+app.use(express.static('/'));
 app.use(express.static('public'));
+app.use(express.static('app/components/public'));
+app.use(express.static(path.resolve(__dirname, './node_modules/react-icons/md')));
+
 
 app.listen(PORT, function () {
   console.log('Express server is up on port ' + PORT);

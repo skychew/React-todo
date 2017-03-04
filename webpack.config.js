@@ -1,3 +1,6 @@
+//resource
+//https://www.davidmeents.com/blog/how-to-set-up-webpack-image-loader/
+
 var webpack = require('webpack');
 var path = require('path');
 var envFile = require('node-env-file');
@@ -69,6 +72,21 @@ module.exports = {
         },
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/
+      },{
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: 'url-loader',
+        query: {
+          // Inline images smaller than 10kb as data URIs
+          limit: 10000
+        }
+      },{
+        test: /(\.js|\.jsx)$/,
+        loader: 'babel-loader',
+        include: [path.resolve(__dirname, './node_modules/react-icons/md'),
+                  path.resolve(__dirname, './node_modules/react-icons/fa')],
+        query: {
+            presets: ['es2015', 'react']
+        }
       }
     ]
   },

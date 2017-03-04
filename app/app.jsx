@@ -25,8 +25,6 @@ $(document).foundation();
 // App css
 require('style!css!sass!applicationStyles')
 
-
-
 ReactDOM.render(
   <Provider store={store}>
     {router}
